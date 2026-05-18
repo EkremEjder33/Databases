@@ -1,0 +1,60 @@
+create database ArabaOtomasyon
+use ArabaOtomasyon
+create table Musteri(
+Mno int primary key,
+Madi varchar (50),
+Msoyadi varchar (50),
+Madres varchar (80),
+Mtelefon varchar(20)
+);
+
+create table Arac(
+Aracno int primary key,
+ModelNo int,
+Marka varchar(20),
+Plaka varchar(30),
+Fiyat int);
+
+create table Satis(
+SatNo int primary key,
+Mno int foreign key references Musteri(Mno),
+Aracno int foreign key references Arac(Aracno),
+sat_tarih date,
+Sfiyat int);
+
+create table Alim(
+AlimNo int primary key,
+Mno int foreign key references Musteri(Mno),
+AracNo int foreign key references Arac(AracNo),
+Alim_Tarih date,
+Afiyat int,);
+
+INSERT INTO Musteri VALUES (1,'Turgut','Özseven','Turhal/Tokat','121646516416');
+INSERT INTO Musteri VALUES (2,'Mustafa','Çağlayan','Meram/Konya','465245212323');
+INSERT INTO Musteri VALUES (3,'Ahmet','Kara','Zile/Tokat','472376298362');
+INSERT INTO Musteri VALUES (4,'Murat','Beyaz','Turhal/Tokat','385235293859');
+INSERT INTO Musteri VALUES (5,'Elif','Kurt','Beşiktaş/İstanbul','948752835293');
+INSERT INTO Musteri VALUES (6,'Ayşe','Uçar','Taşova/Amasya','487394698292');
+INSERT INTO Musteri VALUES (7,'Bülent','Ayar','Turhal/Tokat','232378572352');
+
+INSERT INTO Arac VALUES (1,2004,'Fiat Marea','38 VTYS 3838',100000);
+INSERT INTO Arac VALUES (2,2020,'Renault Megane','38 VTYS 3839',110000);
+INSERT INTO Arac VALUES (3,2010,'Ford Focus','38 VTYS 3840',120000);
+INSERT INTO Arac VALUES (4,2023,'Volkswagen Golf','38 VTYS 3841',250000);
+INSERT INTO Arac VALUES (5,2000,'Opel Astra','38 VTYS 3842',82000);
+
+INSERT INTO Satis VALUES (1,1,1,'2022-05-04',170000);
+INSERT INTO Satis VALUES (2,4,5,'2020-06-01',115000);
+INSERT INTO Satis VALUES (3,7,4,'2023-06-15',270000);
+INSERT INTO Satis VALUES (4,2,1,'2010-07-02',17500);
+
+INSERT INTO Alim VALUES (1,3,1,'2022-05-04',190000);
+INSERT INTO Alim VALUES (2,6,1,'2020-06-01',525000);
+INSERT INTO Alim VALUES (3,2,5,'2023-06-15',370000);
+INSERT INTO Alim VALUES (4,1,2,'2010-07-02',17500);
+INSERT INTO Alim VALUES (5,5,3,'2021-08-22',156800);
+
+select M.Madi, M.Msoyadi, A.Plaka, S.Sfiyat
+from Musteri M 
+inner join Satis S On M.Mno = S.Mno
+inner join Arac A on S.Aracno = A.Aracno;
